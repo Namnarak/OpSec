@@ -6,7 +6,6 @@ import aurick.opsec.mod.mixin.client.MinecraftAccessor;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.minecraft.UserApiService;
-import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.User;
 import net.minecraft.client.multiplayer.ProfileKeyPairManager;
@@ -343,10 +342,16 @@ public class SessionAccount implements Account {
             accessor.opsec$setUser(newUser);
             
             // Reinitialize authentication services
-            YggdrasilAuthenticationService authService = new YggdrasilAuthenticationService(mc.getProxy());
+            Object authService;
+            String authClass = mc.getLaunchedVersion().startsWith("26.3")
+                    ? "com.mojang.authlib.services.YggdrasilAuthenticationService"
+                    : "com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService";
+            Class<?> authServiceClass = Class.forName(authClass);
+            authService = authServiceClass.getConstructor(java.net.Proxy.class).newInstance(mc.getProxy());
             
             // Reinitialize user API service (needed for chat signing)
-            UserApiService userApiService = authService.createUserApiService(accessToken);
+            UserApiService userApiService = (UserApiService) authService.getClass()
+                    .getMethod("createUserApiService", String.class).invoke(authService, accessToken);
             accessor.opsec$setUserApiService(userApiService);
             
             // Reinitialize profile key pair manager (for chat signatures)
@@ -359,7 +364,7 @@ public class SessionAccount implements Account {
             
             // Reinitialize social manager
             //? if >=26.2 {
-            /*com.mojang.authlib.yggdrasil.FriendsService friendsService = authService.createFriendsService(accessToken);
+            /*com.mojang.authlib.yggdrasil.FriendsService friendsService = null;
             net.minecraft.client.gui.screens.social.RemoteFriendListUpdateHandler updateHandler =
                     new net.minecraft.client.gui.screens.social.RemoteFriendListUpdateHandler(friendsService, mc);
             PlayerSocialManager socialManager = new PlayerSocialManager(mc, userApiService, friendsService, updateHandler);*/
