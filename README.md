@@ -388,6 +388,7 @@ OpSec blocks telemetry sending to Mojang when telemetry blocking is enabled. Doe
    ./gradlew :1.21.9:build
    ./gradlew :1.21.11:build
    ./gradlew :26.1:build
+   ./gradlew :26.2:build
    ./gradlew :26.3:build
    ```
 
