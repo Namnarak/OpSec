@@ -40,12 +40,13 @@ public class ServerboundChatPacketMixin {
     //? if >=26.3 {
     /*// 26.3 stores the signature as Optional and the packet is a record, so the
     // signature is cleared on the constructor argument instead of the final field.
+    // HEAD runs before super(), so the handler must be static.
     @ModifyVariable(
         method = "<init>(Ljava/lang/String;Ljava/time/Instant;JLjava/util/Optional;Lnet/minecraft/network/chat/LastSeenMessages$Update;)V",
         at = @At("HEAD"),
         argsOnly = true,
         index = 5)
-    private Optional<MessageSignature> opsec$stripSignatureOnInit(Optional<MessageSignature> signature) {
+    private static Optional<MessageSignature> opsec$stripSignatureOnInit(Optional<MessageSignature> signature) {
         if (OpsecConfig.getInstance().shouldNotSign()) {
             Opsec.LOGGER.debug("[OpSec] signing OFF —stripping chat signature");
             return Optional.empty();
