@@ -42,6 +42,10 @@ def hasPayloadTypeRegistry = isAtLeast(minecraft_version.toString(), "1.20.5")
 def payloadTypeRegistryMixinEntry = hasPayloadTypeRegistry ? '\n\t\t"PayloadTypeRegistryImplMixin",\n\t\t"AbstractChanneledNetworkAddonMixin",' : ''
 def yggdrasilMixinEntry = '\n\t\t"YggdrasilUserApiServiceMixin",'
 
+// Unobfuscated 26.x builds are not remapped, so no refmap is generated. Leaving the
+// key in the config makes Mixin log "No refMap loaded" and fall back to raw names.
+def refmapEntry = isUnobfuscated ? '' : '\n\t"refmap": "client-opsec.refmap.json",'
+
 // Apply the correct Loom plugin variant per version target:
 // - net.fabricmc.fabric-loom (non-remap) for unobfuscated MC 26.1+
 // - fabric-loom (legacy/remap) for obfuscated MC <=1.21.11
@@ -139,6 +143,7 @@ tasks.withType(ProcessResources).configureEach {
     inputs.property("java_version", javaVersion.toString())
     inputs.property("known_packs_mixin_entry", knownPacksMixinEntry)
     inputs.property("payload_type_registry_mixin_entry", payloadTypeRegistryMixinEntry)
+    inputs.property("refmap_entry", refmapEntry)
     filesMatching(["fabric.mod.json", "opsec.client.mixins.json"]) {
         expand(
             "version": project.version,
@@ -147,7 +152,8 @@ tasks.withType(ProcessResources).configureEach {
             "java_version": javaVersion.toString(),
             "known_packs_mixin_entry": knownPacksMixinEntry,
             "payload_type_registry_mixin_entry": payloadTypeRegistryMixinEntry,
-            "yggdrasil_mixin_entry": yggdrasilMixinEntry
+            "yggdrasil_mixin_entry": yggdrasilMixinEntry,
+            "refmap_entry": refmapEntry
         )
     }
 }

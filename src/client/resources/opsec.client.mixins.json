@@ -1,7 +1,6 @@
 {
 	"required": true,
-	"package": "aurick.opsec.mod.mixin.client",
-	"refmap": "client-opsec.refmap.json",
+	"package": "aurick.opsec.mod.mixin.client",${refmap_entry}
 	"compatibilityLevel": "${mixin_compat_level}",
 	"client": [
 		"ClientBrandRetrieverMixin",
