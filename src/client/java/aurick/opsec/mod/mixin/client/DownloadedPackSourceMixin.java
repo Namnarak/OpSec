@@ -39,6 +39,12 @@ public abstract class DownloadedPackSourceMixin {
         if (!PackStripHandler.isWrapped(packId)) return real;
 
         return new FilePackResources.FileResourcesSupplier(file) {
+            //? if >=26.3 {
+            /*@Override
+            public java.util.stream.Stream<PackResources> openResources(PackLocationInfo loc, Pack.Metadata md) {
+                return real.openResources(loc, md).map(res -> new LangOnlyPackResources(res, packId));
+            }*/
+            //?} else {
             @Override
             public PackResources openPrimary(PackLocationInfo loc) {
                 return new LangOnlyPackResources(real.openPrimary(loc), packId);
@@ -48,6 +54,7 @@ public abstract class DownloadedPackSourceMixin {
             public PackResources openFull(PackLocationInfo loc, Pack.Metadata md) {
                 return new LangOnlyPackResources(real.openFull(loc, md), packId);
             }
+            //?}
         };
     }
 }

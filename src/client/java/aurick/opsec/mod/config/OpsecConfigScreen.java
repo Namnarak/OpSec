@@ -736,9 +736,8 @@ public class OpsecConfigScreen extends Screen {
             accountButton.extractRenderState(graphics, mouseX, mouseY, partialTick);
             removeButton.extractRenderState(graphics, mouseX, mouseY, partialTick);
 
-            // Poll mouse state for click detection since mouseClicked API changed
-            long windowHandle = org.lwjgl.glfw.GLFW.glfwGetCurrentContext();
-            boolean isMouseDown = org.lwjgl.glfw.GLFW.glfwGetMouseButton(windowHandle, org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT) == org.lwjgl.glfw.GLFW.GLFW_PRESS;
+            // Poll mouse state for click detection since the 26.x click API differs
+            boolean isMouseDown = Minecraft.getInstance().mouseHandler.isLeftPressed();
 
             if (!isMouseDown && wasMouseDown) {
                 // Mouse was just released
@@ -857,9 +856,8 @@ public class OpsecConfigScreen extends Screen {
             importButton.extractRenderState(graphics, mouseX, mouseY, partialTick);
             exportButton.extractRenderState(graphics, mouseX, mouseY, partialTick);
 
-            // Poll mouse state for click detection since mouseClicked API changed
-            long windowHandle = org.lwjgl.glfw.GLFW.glfwGetCurrentContext();
-            boolean isMouseDown = org.lwjgl.glfw.GLFW.glfwGetMouseButton(windowHandle, org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT) == org.lwjgl.glfw.GLFW.GLFW_PRESS;
+            // Poll mouse state for click detection since the 26.x click API differs
+            boolean isMouseDown = Minecraft.getInstance().mouseHandler.isLeftPressed();
 
             if (!isMouseDown && wasMouseDown) {
                 // Mouse was just released
@@ -976,9 +974,8 @@ public class OpsecConfigScreen extends Screen {
             enableAllButton.extractRenderState(graphics, mouseX, mouseY, partialTick);
             disableAllButton.extractRenderState(graphics, mouseX, mouseY, partialTick);
 
-            // Poll mouse state for click detection since mouseClicked API changed
-            long windowHandle = org.lwjgl.glfw.GLFW.glfwGetCurrentContext();
-            boolean isMouseDown = org.lwjgl.glfw.GLFW.glfwGetMouseButton(windowHandle, org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT) == org.lwjgl.glfw.GLFW.GLFW_PRESS;
+            // Poll mouse state for click detection since the 26.x click API differs
+            boolean isMouseDown = Minecraft.getInstance().mouseHandler.isLeftPressed();
 
             if (!isMouseDown && wasMouseDown) {
                 // Mouse was just released
@@ -1339,6 +1336,18 @@ public class OpsecConfigScreen extends Screen {
 
     private void pollVersionLabelClick() {
         if (!versionOutdated || versionLabel == null) return;
+        //? if >=26.3 {
+        /*boolean isDown = this.minecraft.mouseHandler.isLeftPressed();
+        if (!isDown && versionLabelMouseWasDown) {
+            double scale = this.minecraft.getWindow().getGuiScale();
+            double guiX = this.minecraft.mouseHandler.xpos() / scale;
+            double guiY = this.minecraft.mouseHandler.ypos() / scale;
+            if (isOverVersionLabel(guiX, guiY)) {
+                openReleaseUrl();
+            }
+        }
+        versionLabelMouseWasDown = isDown;*/
+        //?} else {
         long window = org.lwjgl.glfw.GLFW.glfwGetCurrentContext();
         boolean isDown = org.lwjgl.glfw.GLFW.glfwGetMouseButton(window, org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT) == org.lwjgl.glfw.GLFW.GLFW_PRESS;
         if (!isDown && versionLabelMouseWasDown) {
@@ -1352,11 +1361,14 @@ public class OpsecConfigScreen extends Screen {
             }
         }
         versionLabelMouseWasDown = isDown;
+        //?}
     }
 
     private void openReleaseUrl() {
         try {
-            //? if >=1.21.11 {
+            //? if >=26.3 {
+            /*com.mojang.blaze3d.Blaze3D.openUri(java.net.URI.create(UpdateChecker.getReleaseUrl()));*/
+            //?} elif >=1.21.11 {
             /*net.minecraft.util.Util.getPlatform().openUri(UpdateChecker.getReleaseUrl());*/
             //?} else {
             net.minecraft.Util.getPlatform().openUri(UpdateChecker.getReleaseUrl());

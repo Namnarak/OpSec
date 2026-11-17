@@ -40,7 +40,7 @@ def knownPacksMixinEntry = hasKnownPacksManager ? '\n\t\t"KnownPacksManagerMixin
 // (no-op stub) mixin is stripped to avoid Mixin loading a class with no @Mixin target.
 def hasPayloadTypeRegistry = isAtLeast(minecraft_version.toString(), "1.20.5")
 def payloadTypeRegistryMixinEntry = hasPayloadTypeRegistry ? '\n\t\t"PayloadTypeRegistryImplMixin",\n\t\t"AbstractChanneledNetworkAddonMixin",' : ''
-def yggdrasilMixinEntry = isAtLeast(minecraft_version.toString(), "26.3") ? '' : '\n\t\t"YggdrasilUserApiServiceMixin",'
+def yggdrasilMixinEntry = '\n\t\t"YggdrasilUserApiServiceMixin",'
 
 // Apply the correct Loom plugin variant per version target:
 // - net.fabricmc.fabric-loom (non-remap) for unobfuscated MC 26.1+

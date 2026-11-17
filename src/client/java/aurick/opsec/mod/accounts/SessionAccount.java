@@ -342,6 +342,11 @@ public class SessionAccount implements Account {
             accessor.opsec$setUser(newUser);
             
             // Reinitialize authentication services
+            //? if >=26.3 {
+            /*com.mojang.authlib.services.MinecraftServicesDiscoveryService discoveryService =
+                    com.mojang.authlib.services.MinecraftServicesDiscoveryService.create(mc.getProxy());
+            UserApiService userApiService = discoveryService.createUserApiService(accessToken);*/
+            //?} else {
             Object authService;
             Class<?> authServiceClass;
             try {
@@ -354,6 +359,7 @@ public class SessionAccount implements Account {
             // Reinitialize user API service (needed for chat signing)
             UserApiService userApiService = (UserApiService) authService.getClass()
                     .getMethod("createUserApiService", String.class).invoke(authService, accessToken);
+            //?}
             accessor.opsec$setUserApiService(userApiService);
             
             // Reinitialize profile key pair manager (for chat signatures)
@@ -365,7 +371,12 @@ public class SessionAccount implements Account {
             accessor.opsec$setProfileKeyPairManager(profileKeyPairManager);
             
             // Reinitialize social manager
-            //? if >=26.2 {
+            //? if >=26.3 {
+            /*com.mojang.authlib.services.FriendsService friendsService = discoveryService.createFriendsService(accessToken);
+            net.minecraft.client.gui.screens.social.RemoteFriendListUpdateHandler updateHandler =
+                    new net.minecraft.client.gui.screens.social.RemoteFriendListUpdateHandler(friendsService, mc);
+            PlayerSocialManager socialManager = new PlayerSocialManager(mc, userApiService, friendsService, updateHandler);*/
+            //?} elif >=26.2 {
             /*com.mojang.authlib.yggdrasil.FriendsService friendsService = null;
             net.minecraft.client.gui.screens.social.RemoteFriendListUpdateHandler updateHandler =
                     new net.minecraft.client.gui.screens.social.RemoteFriendListUpdateHandler(friendsService, mc);
