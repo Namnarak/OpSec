@@ -8,9 +8,9 @@
 
 <p align="center">
 <a href="https://modrinth.com/mod/opsec"><img alt="Modrinth Downloads" src="https://img.shields.io/modrinth/dt/opsec?logo=modrinth&logoColor=white&label=Modrinth&color=00AF5C"></a>
-<a href="https://modrinth.com/mod/opsec/versions"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.2-00AF5C"></a>
+<a href="https://modrinth.com/mod/opsec/versions"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.3-00AF5C"></a>
 <a href="https://www.curseforge.com/minecraft/mc-mods/opsec"><img alt="CurseForge Downloads" src="https://img.shields.io/curseforge/dt/1519411?logo=curseforge&logoColor=white&label=Curseforge&color=F16436"></a>
-<a href="https://www.curseforge.com/minecraft/mc-mods/opsec"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.2-F16436"></a>
+<a href="https://www.curseforge.com/minecraft/mc-mods/opsec"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.3-F16436"></a>
 <a href="https://github.com/aurickk/OpSec/releases"><img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/aurickk/OpSec/total?logo=github&logoColor=white&label=GitHub&color=6e5494"></a>
 <a href="https://github.com/aurickk/OpSec/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/aurickk/OpSec?logo=github&logoColor=white&label=Release&color=6e5494"></a>
 </p>
@@ -47,8 +47,8 @@
 
 ## Requirements
 
-- **Minecraft** 1.20 – 26.2
-- **Fabric Loader** 0.16.0+ (0.18.5+ for MC 26.1.x)
+- **Minecraft** 1.20 – 26.3
+- **Fabric Loader** 0.16.0+ (0.18.5+ for MC 26.1.x; 0.19.5+ for MC 26.3)
 - **Fabric API** (matching your Minecraft version)
 
 ### Installation
@@ -388,7 +388,7 @@ OpSec blocks telemetry sending to Mojang when telemetry blocking is enabled. Doe
    ./gradlew :1.21.9:build
    ./gradlew :1.21.11:build
    ./gradlew :26.1:build
-   ./gradlew :26.2:build
+   ./gradlew :26.3:build
    ```
 
 Output JARs are located in `versions/<minecraft_version>/build/libs/`:
@@ -404,7 +404,7 @@ Output JARs are located in `versions/<minecraft_version>/build/libs/`:
 | 1.21.9 | 1.21.9 – 1.21.10 |
 | 1.21.11 | 1.21.11 |
 | 26.1 | 26.1 – 26.1.2 |
-| 26.2 | 26.2 |
+| 26.3 | 26.3 |
 
 
 ## References
