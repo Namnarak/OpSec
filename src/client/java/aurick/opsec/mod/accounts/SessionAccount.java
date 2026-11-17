@@ -343,10 +343,12 @@ public class SessionAccount implements Account {
             
             // Reinitialize authentication services
             Object authService;
-            String authClass = mc.getLaunchedVersion().startsWith("26.3")
-                    ? "com.mojang.authlib.services.YggdrasilAuthenticationService"
-                    : "com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService";
-            Class<?> authServiceClass = Class.forName(authClass);
+            Class<?> authServiceClass;
+            try {
+                authServiceClass = Class.forName("com.mojang.authlib.services.YggdrasilAuthenticationService");
+            } catch (ClassNotFoundException legacyAuthlib) {
+                authServiceClass = Class.forName("com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService");
+            }
             authService = authServiceClass.getConstructor(java.net.Proxy.class).newInstance(mc.getProxy());
             
             // Reinitialize user API service (needed for chat signing)
