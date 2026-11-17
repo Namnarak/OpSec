@@ -42,6 +42,9 @@ import net.minecraft.network.chat.Component;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.util.tinyfd.TinyFileDialogs;
+//?} else {
+/*import java.awt.FileDialog;
+import java.awt.Frame;*/
 //?}
 
 import java.io.File;
@@ -606,70 +609,78 @@ public class OpsecConfigScreen extends Screen {
     
     private void openImportDialog() {
         new Thread(() -> {
+            //? if >=26.3 {
+            /*try {
+                FileDialog dialog = new FileDialog((Frame) null, "Import Accounts", FileDialog.LOAD);
+                dialog.setFile("*.json");
+                dialog.setVisible(true);
+                String selected = dialog.getFile();
+                if (selected == null) return;
+                File file = new File(dialog.getDirectory(), selected);
+                int imported = AccountManager.getInstance().importFromJson(Files.readString(file.toPath(), StandardCharsets.UTF_8));
+                Minecraft.getInstance().execute(() -> {
+                    if (imported > 0) Opsec.LOGGER.info("[OpSec] Imported {} accounts from {}", imported, file.getName());
+                    refreshScreen();
+                });
+            } catch (Exception e) {
+                Opsec.LOGGER.error("[OpSec] Failed to import accounts: {}", e.getMessage());
+            }*/
+            //?} else {
             try (MemoryStack stack = MemoryStack.stackPush()) {
                 PointerBuffer filters = stack.mallocPointer(1);
                 filters.put(stack.UTF8("*.json"));
                 filters.flip();
-                
-                String result = TinyFileDialogs.tinyfd_openFileDialog(
-                    "Import Accounts",
-                    "",
-                    filters,
-                    "JSON Files (*.json)",
-                    false
-                );
-                
+                String result = TinyFileDialogs.tinyfd_openFileDialog("Import Accounts", "", filters, "JSON Files (*.json)", false);
                 if (result == null) return;
-                
                 File file = new File(result);
-                String content = Files.readString(file.toPath(), StandardCharsets.UTF_8);
-                int imported = AccountManager.getInstance().importFromJson(content);
-                
-                // Refresh UI on main thread
+                int imported = AccountManager.getInstance().importFromJson(Files.readString(file.toPath(), StandardCharsets.UTF_8));
                 Minecraft.getInstance().execute(() -> {
-                    if (imported > 0) {
-                        Opsec.LOGGER.info("[OpSec] Imported {} accounts from {}", imported, file.getName());
-                    }
+                    if (imported > 0) Opsec.LOGGER.info("[OpSec] Imported {} accounts from {}", imported, file.getName());
                     refreshScreen();
                 });
             } catch (Exception e) {
                 Opsec.LOGGER.error("[OpSec] Failed to import accounts: {}", e.getMessage());
             }
+            //?}
         }, "OpSec-Import-Thread").start();
     }
-    
+
     private void openExportDialog() {
         new Thread(() -> {
+            //? if >=26.3 {
+            /*try {
+                FileDialog dialog = new FileDialog((Frame) null, "Export Accounts", FileDialog.SAVE);
+                dialog.setFile("opsec-accounts-export.json");
+                dialog.setVisible(true);
+                String selected = dialog.getFile();
+                if (selected == null) return;
+                File file = new File(dialog.getDirectory(), selected);
+                if (!file.getName().toLowerCase().endsWith(".json")) file = new File(file.getParentFile(), file.getName() + ".json");
+                Files.write(file.toPath(), AccountManager.getInstance().exportToJson().getBytes(StandardCharsets.UTF_8),
+                        StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                Opsec.LOGGER.info("[OpSec] Exported accounts to {}", file.getPath());
+            } catch (Exception e) {
+                Opsec.LOGGER.error("[OpSec] Failed to export accounts: {}", e.getMessage());
+            }*/
+            //?} else {
             try (MemoryStack stack = MemoryStack.stackPush()) {
                 PointerBuffer filters = stack.mallocPointer(1);
                 filters.put(stack.UTF8("*.json"));
                 filters.flip();
-                
-                String result = TinyFileDialogs.tinyfd_saveFileDialog(
-                    "Export Accounts",
-                    "opsec-accounts-export.json",
-                    filters,
-                    "JSON Files (*.json)"
-                );
-                
+                String result = TinyFileDialogs.tinyfd_saveFileDialog("Export Accounts", "opsec-accounts-export.json", filters, "JSON Files (*.json)");
                 if (result == null) return;
-                
                 File file = new File(result);
-                if (!file.getName().toLowerCase().endsWith(".json")) {
-                    file = new File(file.getParentFile(), file.getName() + ".json");
-                }
-                
-                String json = AccountManager.getInstance().exportToJson();
-                Files.write(file.toPath(), json.getBytes(StandardCharsets.UTF_8),
-                    StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-                    
+                if (!file.getName().toLowerCase().endsWith(".json")) file = new File(file.getParentFile(), file.getName() + ".json");
+                Files.write(file.toPath(), AccountManager.getInstance().exportToJson().getBytes(StandardCharsets.UTF_8),
+                        StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
                 Opsec.LOGGER.info("[OpSec] Exported accounts to {}", file.getPath());
             } catch (Exception e) {
                 Opsec.LOGGER.error("[OpSec] Failed to export accounts: {}", e.getMessage());
             }
+            //?}
         }, "OpSec-Export-Thread").start();
     }
-    
+
     // Custom widget for account row (account button + remove button side by side)
     private static class AccountRowWidget extends AbstractWidget {
         private final Button accountButton;
