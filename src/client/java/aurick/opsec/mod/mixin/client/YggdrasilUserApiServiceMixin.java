@@ -1,5 +1,7 @@
 package aurick.opsec.mod.mixin.client;
 
+//? if <26.3 {
+
 import aurick.opsec.mod.Opsec;
 import aurick.opsec.mod.config.OpsecConfig;
 import com.mojang.authlib.minecraft.TelemetrySession;
@@ -35,3 +37,4 @@ public class YggdrasilUserApiServiceMixin {
     }
 }
 
+//?}
