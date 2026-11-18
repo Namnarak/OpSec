@@ -33,7 +33,8 @@ import java.util.function.BiConsumer;
  * Uses instanceof checks matching ExploitPreventer's approach for reliability.
  * 
  * Pack types and handling:
- * - VanillaPackResources: Vanilla Minecraft → Always whitelisted
+ * - Vanilla packs (`VanillaPackResources`, or any pack whose id is "vanilla"
+ *   like 26.3's FixedPathPackResources): Always whitelisted
  * - Server-pushed packs (packId via {@link #opsec$isServerPackId}): Session whitelisted
  * - Fabric mod packs (detected via reflection) → Tracked as mod (blocked in exploitable contexts)
  * - PathPackResources / user-installed file packs: Passthrough (not tracked)
@@ -97,8 +98,10 @@ public class ClientLanguageMixin {
         
         PackResources pack = resource.source();
         
-        // Vanilla pack - always whitelist
-        if (pack instanceof VanillaPackResources) {
+        // Vanilla pack - always whitelist.
+        // 26.3: VanillaPackResources no longer implements PackResources; the vanilla
+        // resource is a FixedPathPackResources whose pack id is still "vanilla".
+        if (pack instanceof VanillaPackResources || "vanilla".equals(pack.packId())) {
             original.call(stream, (BiConsumer<String, String>) (key, value) -> {
                 ModRegistry.recordVanillaTranslationKey(key);
                 output.accept(key, value);
