@@ -27,6 +27,9 @@
 >
 > Builds from anywhere else are not official and may be malicious.
 
+> [!NOTE]
+> **Unofficial continuation.** This repository is an unofficial fork of [OpSec](https://github.com/aurickk/OpSec) by aurickk, maintained independently. It is not affiliated with Mojang Studios, Microsoft, or the upstream author. Development continues here for as long as the project stays technically possible: we keep it compatible with new Minecraft versions and adapt it to new detection techniques, and we will keep doing so until Mojang makes it impossible. Builds for this continuation are published in this repository's [Releases](https://github.com/Namnarak/OpSec/releases).
+
 ## What it does 
 
 - **[Spoof as Vanilla](#spoof-as-vanilla)** - Set brand name to vanilla and block all mod detections
@@ -420,5 +423,11 @@ Output JARs are located in `versions/<minecraft_version>/build/libs/`:
 - [Fabric API](https://github.com/FabricMC/fabric-api) - Fabric translation and keybind keys
 
 ## Disclaimer
+
+OpSec is an **unofficial** community project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft, and it is not an official Minecraft product.
+
+This repository is a continuation of [OpSec by aurickk](https://github.com/aurickk/OpSec). The original idea and implementation belong to its author; this fork carries the project forward independently, with fixes, new Minecraft version support and further development.
+
+The goal is to keep OpSec working for as long as it is technically possible — adapting to new Minecraft releases and new detection techniques, until Mojang closes the door for good. If that day comes, the project ends there.
 
 OpSec is a privacy tool designed to protect players from unwanted client fingerprinting and tracking. It is not intended or encouraged for use in bypassing server rules, evading bans, or gaining unfair advantages. Users are responsible for complying with the rules and terms of service of any server they connect to.
