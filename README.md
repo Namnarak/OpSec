@@ -11,8 +11,8 @@
 <a href="https://modrinth.com/mod/opsec/versions"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.3-00AF5C"></a>
 <a href="https://www.curseforge.com/minecraft/mc-mods/opsec"><img alt="CurseForge Downloads" src="https://img.shields.io/curseforge/dt/1519411?logo=curseforge&logoColor=white&label=Curseforge&color=F16436"></a>
 <a href="https://www.curseforge.com/minecraft/mc-mods/opsec"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.3-F16436"></a>
-<a href="https://github.com/aurickk/OpSec/releases"><img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/aurickk/OpSec/total?logo=github&logoColor=white&label=GitHub&color=6e5494"></a>
-<a href="https://github.com/aurickk/OpSec/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/aurickk/OpSec?logo=github&logoColor=white&label=Release&color=6e5494"></a>
+<a href="https://github.com/aurickk/OpSec/releases"><img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/Namnarak/OpSec/total?logo=github&logoColor=white&label=GitHub&color=6e5494"></a>
+<a href="https://github.com/Namnarak/OpSec/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/aurickk/OpSec?logo=github&logoColor=white&label=Release&color=6e5494"></a>
 </p>
 
 
@@ -29,6 +29,8 @@
 
 > [!NOTE]
 > **Unofficial continuation.** This repository is an unofficial fork of [OpSec](https://github.com/aurickk/OpSec) by aurickk, maintained independently. It is not affiliated with Mojang Studios, Microsoft, or the upstream author. Development continues here for as long as the project stays technically possible: we keep it compatible with new Minecraft versions and adapt it to new detection techniques, and we will keep doing so until Mojang makes it impossible. Builds for this continuation are published in this repository's [Releases](https://github.com/Namnarak/OpSec/releases).
+>
+> For a detailed record of changes, fixes, compatibility work, and verification notes, see the [Changelog](CHANGELOG.md).
 
 ## What it does 
 
@@ -58,7 +60,7 @@
 
 1. Install [Fabric Loader](https://fabricmc.net/use/) for your Minecraft version
 2. Download the latest [Fabric API](https://modrinth.com/mod/fabric-api) for your Minecraft version
-3. Download the latest `opsec-[minecraft_version]+[version].jar` from the [Releases](https://github.com/aurickk/OpSec/releases/) page
+3. Download the latest `opsec-[minecraft_version]+[version].jar` from the [Releases](https://github.com/Namnarak/OpSec/releases/) page
 4. Place both mods in your `.minecraft/mods` folder
 5. Launch Minecraft
 
@@ -365,7 +367,7 @@ OpSec blocks telemetry sending to Mojang when telemetry blocking is enabled. Doe
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/aurickk/OpSec.git
+   git clone https://github.com/Namnarak/OpSec.git
    cd OpSec
    ```
 
