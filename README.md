@@ -411,6 +411,10 @@ Output JARs are located in `versions/<minecraft_version>/build/libs/`:
 | 26.3 | 26.3 |
 
 
+## License
+
+Licensed under the [GNU General Public License v3.0](LICENSE). The `LICENSE` file contains the unmodified GPL-3.0 text from the Free Software Foundation.
+
 ## References
 
 - [ExploitPreventer](https://github.com/NikOverflow/ExploitPreventer) - Local URL blocking and server key resolution protection anti-measures
